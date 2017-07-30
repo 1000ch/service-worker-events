@@ -1,0 +1,17 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  color: #fff;
+  background-color: #202c2f;
+}
+
+.loading {
+  width: 50vw;
+}

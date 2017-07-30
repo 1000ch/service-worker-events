@@ -1,20 +1,21 @@
 const state = document.querySelector('#state');
-const sw = navigator.serviceWorker;
+const loading = document.querySelector('#loading');
 
-sw.ready.then(() => {
-  state.textContent = 'Service Worker installed successfully';
+state.textContent = 'Installing Service Worker...';
+loading.hidden = false;
 
-  if (sw.controller) {
-    return sw.controller;
-  }
+navigator.serviceWorker.ready.then(() => {
+  state.textContent = 'Activating Service Worker...';
+  loading.hidden = false;
 
-  return new Promise(resolve => {
-    sw.addEventListener('controllerchange', resolve);
+  return navigator.serviceWorker.controller || new Promise(resolve => {
+    navigator.serviceWorker.addEventListener('controllerchange', resolve);
   });
 }).then(() => {
-  state.textContent = 'Service Worker activated successfully';
+  state.textContent = 'Installed and Activated.';
+  loading.hidden = true;
 });
 
-sw.register('service-worker.js', {
+navigator.serviceWorker.register('service-worker.js', {
   scope: location.pathname
 });
