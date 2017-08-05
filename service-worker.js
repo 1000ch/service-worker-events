@@ -3,9 +3,14 @@ const sleep = ms => new Promise(resolve => {
 });
 
 self.addEventListener('install', e => {
-  e.waitUntil(sleep(5000));
+  e.waitUntil(async () => {
+    await sleep(5000);
+  });
 });
 
 self.addEventListener('activate', e => {
-  e.waitUntil(sleep(5000).then(() => self.clients.claim()));
+  e.waitUntil(async () => {
+    await sleep(5000);
+    await self.clients.claim();
+  });
 });
